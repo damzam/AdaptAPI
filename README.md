@@ -40,13 +40,6 @@ and then you should be able to run the rendering engine with the following:
 
 `cd scraper`
 
-6) Run the spider to scrape the MOCK_INDEMNITY content with the following command:
+6) Load the seed urls from `input.json` (copied from the take home assignment) and run the respective spiders to scrape the MOCK_INDEMNITY and PLACEHOLDER_CARRIER content and log it out to the console with the following command:
 
-`scrapy crawl mock_indemnity`
-
-7) Run the spider to scrape the MOCK_CARRIER content with the following command:
-
-`scrapy crawl mock_carrier`
-
-
-
+`make`
