@@ -50,4 +50,10 @@ and then you should be able to run the rendering engine with the following:
 
 ## Clean Up
 
-Remove the local repo :)
+1) Remove the local repo
+
+2) Terminate the docker process and remove the image
+
+`docker rmi scrapinghub/splash`
+
+And you're done!
