@@ -22,24 +22,32 @@ and then you should be able to run the rendering engine with the following:
 
 1) Download the code
 
-`git clone https://github.com/damzam/AdaptAPI.git`
+`git clone git@github.com:damzam/AdaptAPI.git`
 
-2) Create a virtual environment to protect your system python
+2) Change directory into AdaptAPI
+
+`cd AdaptAPI`
+
+3) Create a virtual environment to protect your system python
 
 `python3 -m venv .env`
 
-3) Activate the virtual environment
+4) Activate the virtual environment
 
 `source .env/bin/activate`
 
-4) Install dependencies
+5) Install dependencies
 
 `pip install scrapy scrapy-splash`
 
-5) cd into the `scraper` directory
+6) cd into the `scraper` directory
 
 `cd scraper`
 
-6) Load the seed urls from `input.json` (copied from the take home assignment) and run the respective spiders to scrape the MOCK_INDEMNITY and PLACEHOLDER_CARRIER content and log it out to the console with the following command:
+7) Load the seed urls from `input.json` (copied from the take home assignment) and run the respective spiders to scrape the MOCK_INDEMNITY and PLACEHOLDER_CARRIER content and log it out to the console with the following command:
 
 `make`
+
+## Clean Up
+
+Remove the local repo :)
