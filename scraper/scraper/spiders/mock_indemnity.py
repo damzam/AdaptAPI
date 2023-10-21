@@ -8,14 +8,15 @@ import logging
 import scrapy
 from scrapy_splash import SplashRequest 
 
-SEED_URL = 'https://scraping-interview.onrender.com/mock_indemnity/a0dfjw9a'
-
 
 class MockIndemnitySpider(scrapy.Spider):
     name = 'mock_indemnity'
 
+    def __init__(self, domain=None, *args, **kwargs):
+        self.url = domain
+
     def start_requests(self):
-        yield SplashRequest(SEED_URL,
+        yield SplashRequest(self.url,
                             callback=self.parse,
                             args={'wait': 0.5})  # wait until dynamic content renders
 
@@ -48,5 +49,6 @@ class MockIndemnitySpider(scrapy.Spider):
 
             indemnity_data['policies'].append(policy_item)
 
+        logging.info('Logging output for MOCK_INDEMNITY:')
         logging.info(json.dumps(indemnity_data, indent=4))
         yield

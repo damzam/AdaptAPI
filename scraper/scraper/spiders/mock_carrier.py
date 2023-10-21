@@ -17,14 +17,17 @@ EMAIL_REGEX = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 class MockCarrierSpider(scrapy.Spider):
     name = 'mock_carrier'
 
+    def __init__(self, domain=None, *args, **kwargs):
+        self.url = domain + '/policies/1'  # the seed url also includes /policies/1
+        self.carrier_data = {}
+        self.policies = []
+
     def start_requests(self):
-        yield SplashRequest(SEED_URL,
+        yield SplashRequest(self.url,
                             callback=self.parse,
                             args={'wait': 0.5})  # wait until dynamic content renders
 
     def parse(self, response):
-
-        carrier_data = {}
 
         # Agent details data is cleanly formatted
         agent_keys = response.css('.agency-details label::attr(for)').getall()
@@ -36,7 +39,7 @@ class MockCarrierSpider(scrapy.Spider):
             'agency_code': 'agencyCode'
         }
         js_formatted_dict = dict(zip(agent_keys, agent_vals))  # Perform a matrix transformation to create dict
-        carrier_data['agent_details'] = {k: js_formatted_dict[v] for (k, v) in key_translations.items()}
+        self.carrier_data['agent_details'] = {k: js_formatted_dict[v] for (k, v) in key_translations.items()}
         
         # Customer details data is *not* as consistently formatted as agent details, but let's try to get it!
         customer = {}
@@ -47,7 +50,7 @@ class MockCarrierSpider(scrapy.Spider):
         except IndexError:  # Don't crash if the email is invalid!
             customer['email'] = None
         customer['address'] = response.css('.customer-details div::text').getall()[-1].replace('Address: ', '')
-        carrier_data['customer_details'] = customer
+        self.carrier_data['customer_details'] = customer
 
         # Now get data for policies
         policies = []
@@ -66,10 +69,8 @@ class MockCarrierSpider(scrapy.Spider):
             except IndexError:  # Note, if one of these is missing, none will be captured
                 pass
             policies[i]['details'] = details_item
-        carrier_data['policies'] = policies
 
-        logging.info(json.dumps(carrier_data, indent=4))
-        yield
+        self.policies.extend(policies)
 
         # Let's check to see if there are more pages to scrape :)
         next_page_url = None
@@ -80,5 +81,8 @@ class MockCarrierSpider(scrapy.Spider):
 
         if next_page_url:  # If there's more work to do, let's keep the party going!
             yield scrapy.Request(next_page_url, self.parse)
-
+        else:  # we're finished!
+            self.carrier_data['policies'] = self.policies
+            logging.info('Logging output for PLACEHOLDER_CARRIER:')
+            logging.info(json.dumps(self.carrier_data, indent=4))
         
