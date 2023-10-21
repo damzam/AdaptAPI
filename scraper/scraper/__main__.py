@@ -35,8 +35,8 @@ def run_concurrent_spiders(targets):
     process = CrawlerProcess(settings)
     for target in targets:
         url = '/'.join([BASE_URL, target['carrier'].lower(), target['customerId']])
-        # if target['carrier'] == 'MOCK_INDEMNITY':
-        #    process.crawl(MockIndemnitySpider, domain=url)
+        if target['carrier'] == 'MOCK_INDEMNITY':
+            process.crawl(MockIndemnitySpider, domain=url)
         if target['carrier'] == 'PLACEHOLDER_CARRIER': 
             process.crawl(MockCarrierSpider, domain=url)
     process.start()
