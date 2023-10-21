@@ -2,7 +2,7 @@
 
 Salutations, Jacob!
 
-For this most excellent [takehome exercise](https://www.notion.so/adapt-api/Adapt-Engineering-Take-home-c9edda9f51dd4709b4ade053b8f19aff), I have elected to use the awesome library [Scrapy][https://github.com/scrapy/scrapy], which lets you build fast, high-concurrency web spiders that extract and organize the data that you want and/or need extremely efficiently and easily while addressing login, authentication and session concerns.
+For this most excellent [takehome exercise](https://www.notion.so/adapt-api/Adapt-Engineering-Take-home-c9edda9f51dd4709b4ade053b8f19aff), I have elected to use the awesome library [Scrapy](https://github.com/scrapy/scrapy), which lets you build fast, high-concurrency web spiders that extract and organize the data that you want and/or need extremely efficiently and easily while addressing login, authentication and session concerns.
 
 I'm also using the [Scrapy-Splash](https://github.com/scrapy-plugins/scrapy-splash) plugin which doesn't just run javascript to allow you to wait for dynamic content to load, it also has facilities for doing things like scrolling down for the emulated browser (running in a docker container) to load additional dynamic content.
 
