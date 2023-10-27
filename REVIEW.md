@@ -34,35 +34,25 @@
 - I opted not to package the project using a [setup.py](https://www.geeksforgeeks.org/what-is-setup-py-in-python/) file, thinking it would be **fun** for you to go through the process of seeing that only two simple dependencies needed to be installed into the virtual environment with the `pip install scrapy scrapy-splash` command.
 - The Makefile wasn't necessary; you could have just executed the code with the command `python3 -m scraper input.json`, but I thought it would be kind of cool to just run `make`.
 
-### Warts to remove
+### Warts to Remove
 
 - Remove vestiges of `SEED_URL` that were hard-coded in the `mock_carrier.py` spider
 
 ### Work to Be Done
 
-- authentication / secrets AWS Secrets Manager
+- Authentication / secrets AWS Secrets Manager
 
 - task schduling/queueing...make sure to play nice, avoid DoS and check robots.txt
   - (see settings.py for throttling)
 
 - persistence: storing semi-structured data timestamped versions in Postgres or Redis (grok vector databases)
 
-- checking for diffs (you can automate the process of detecting and notifying in the event of information loss/change in the event of a modification in data availability or HTML structure)
-  - Validations (is it in the set of...)
+- Check for diffs (you can automate the process of detecting and notifying in the event of information loss/change in the event of a modification in data availability or HTML structure)
+  - Validations based on domain-specific knowledge (e.g. policy status, endorsement data, etc.)
   - Data additions are more challenging
 
 - We could have used [Lua scripting](https://splash.readthedocs.io/en/stable/scripting-overview.html) for Scrapy-Splash to emulate user actions that would have yielded additional dynamic content was available, but it was unnecessary for this exercise.
 
 - I put the logic for extracting, organizing, and munging data in the spiders, but a more scalable solution should have utilized the [Item-Pipeline](https://docs.scrapy.org/en/latest/topics/item-pipeline.html) facility offered by Scrapy.
-
-
-Enhance the scraped data with metadata, such as the date the item was scraped.
-Validate the scraped data for errors.
-Store the scraped data in a database or other data store.
-
-cleansing HTML data
-validating scraped data (checking that the items contain certain fields)
-checking for duplicates (and dropping them)
-storing the scraped item in a database
 
 
