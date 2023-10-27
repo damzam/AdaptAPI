@@ -34,15 +34,19 @@
 - I opted not to package the project using a [setup.py](https://www.geeksforgeeks.org/what-is-setup-py-in-python/) file, thinking it would be **fun** for you to go through the process of seeing that only two simple dependencies needed to be installed into the virtual environment with the `pip install scrapy scrapy-splash` command.
 - The Makefile wasn't necessary; you could have just executed the code with the command `python3 -m scraper input.json`, but I thought it would be kind of cool to just run `make`.
 
-### Warts to Remove
+### Oopsies
 
-- Remove vestiges of `SEED_URL` that were hard-coded in the `mock_carrier.py` spider
+- I left vestiges of `SEED_URL` hard-coded in the `mock_carrier.py` spider
+- I forgot to add `SPLASH_URL = "http://localhost:8050"` to the `settings.py` file
 
 ### Work to Be Done
 
 - Authentication / secrets AWS Secrets Manager
 
-- Task schduling/queueing...make sure to play nice, avoid DoS and check robots.txt
+- Organization of spiders for multiple carriers
+
+- Task schduling/queueing: Scrapy has an awesome [Scheduler]('https://docs.scrapy.org/en/latest/topics/practices.html#running-multiple-spiders-in-the-same-process') tool; make sure to play nice, avoid DoS and check robots.txt
+  - Consider using a tool like Redis for queuing in conjunction with Scrapy's Scheduler
   - (see settings.py for throttling)
 
 - Persistence: storing semi-structured data timestamped versions in Postgres or Redis
