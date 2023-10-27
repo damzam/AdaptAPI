@@ -42,10 +42,10 @@
 
 - Authentication / secrets AWS Secrets Manager
 
-- task schduling/queueing...make sure to play nice, avoid DoS and check robots.txt
+- Task schduling/queueing...make sure to play nice, avoid DoS and check robots.txt
   - (see settings.py for throttling)
 
-- persistence: storing semi-structured data timestamped versions in Postgres or Redis (grok vector databases)
+- Persistence: storing semi-structured data timestamped versions in Postgres or Redis
 
 - Check for diffs (you can automate the process of detecting and notifying in the event of information loss/change in the event of a modification in data availability or HTML structure)
   - Validations based on domain-specific knowledge (e.g. policy status, endorsement data, etc.)
